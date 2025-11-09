@@ -49,3 +49,6 @@ trace.json
 
 # Temporary files
 tmp
+
+.envrc
+.direnv
