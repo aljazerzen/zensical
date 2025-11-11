@@ -31,11 +31,11 @@ use std::str::FromStr;
 use std::{fs, io};
 use zrx::id::{Id, Matcher};
 use zrx::scheduler::action::report::IntoReport;
+use zrx::stream::Stream;
 use zrx::stream::barrier::Condition;
 use zrx::stream::function::{with_id, with_splat};
 use zrx::stream::value::{Chunk, Delta};
 use zrx::stream::workspace::Workspace;
-use zrx::stream::Stream;
 
 use super::config::Config;
 use super::structure::markdown::Markdown;
@@ -266,8 +266,11 @@ pub fn render_templates(
                 .into_report()
                 .and_then(|report| {
                     let path = site_dir.join(name);
-                    fs::create_dir_all(path.parent().expect("invariant"))?;
-                    fs::write(path, &report.data).map_err(Into::into)
+                    fs::create_dir_all(path.parent().expect("invariant"))
+                        .map_err(|e| dbg!(e))?;
+                    fs::write(dbg!(path), &report.data)
+                        .map_err(|e| dbg!(e))
+                        .map_err(Into::into)
                 })
         },
     ))
@@ -297,8 +300,10 @@ pub fn render_pages(
                 .into_report()
                 .and_then(|report| {
                     let path = Path::new(&page.path);
-                    fs::create_dir_all(path.parent().expect("invariant"))?;
-                    fs::write(path, &report.data)
+                    fs::create_dir_all(path.parent().expect("invariant"))
+                        .map_err(|e| dbg!(e))?;
+                    fs::write(dbg!(path), &report.data)
+                        .map_err(|e| dbg!(e))
                         .map_err(Into::into)
                         .inspect(|()| println!("+ /{}", page.url))
                 })
@@ -310,6 +315,7 @@ pub fn render_pages(
 pub fn create_workspace(config: &Config) -> Workspace<Id> {
     let workspace = Workspace::new();
     let config = config.clone();
+    dbg!(&config);
 
     // Right now, we use a single workflow for the entirety of the build. Later,
     // when we work on the module system, modules will have their own workflows.

@@ -74,7 +74,7 @@ dev = [
 
 [tool.maturin]
 python-source = "python"
-features = ["pyo3/extension-module"]
+features = ["pyo3/extension-module", "tracing"]
 manifest-path = "crates/zensical/Cargo.toml"
 include = [
   "python/zensical/templates/**/*",

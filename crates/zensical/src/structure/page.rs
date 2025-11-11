@@ -25,7 +25,7 @@
 
 //! Page.
 
-use minijinja::{context, Error};
+use minijinja::{Error, context};
 use pyo3::FromPyObject;
 use serde::Serialize;
 use std::collections::BTreeMap;
@@ -35,7 +35,7 @@ use zrx::id::Id;
 use zrx::scheduler::Value;
 
 use crate::config::Config;
-use crate::template::{Template, GENERATOR};
+use crate::template::{GENERATOR, Template};
 
 use super::dynamic::Dynamic;
 use super::markdown::Markdown;
