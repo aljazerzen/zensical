@@ -265,7 +265,7 @@ pub fn render_templates(
                 .render(&config, &nav)
                 .into_report()
                 .and_then(|report| {
-                    let path = site_dir.join(name);
+                    let path = dbg!(site_dir.join(name));
                     fs::create_dir_all(path.parent().expect("invariant"))
                         .map_err(|e| dbg!(e))?;
                     fs::write(dbg!(path), &report.data)
