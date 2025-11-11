@@ -253,7 +253,8 @@ pub fn render_templates(
     let config = config.clone();
     templates.product(nav).delta_map(with_splat(
         move |template: String, nav: Navigation| {
-            let name = Path::new(&template).file_name().expect("invariant");
+            let name =
+                dbg!(Path::new(&template)).file_name().expect("invariant");
             let site_dir = config.get_site_dir();
 
             // Obtain template
